@@ -12,8 +12,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="./libs/bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.spectrogram.min.js"></script>
     <script src="./js/resume.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <!--<script src="/socket.io/socket.io.js"></script>-->
     <script src="./petsounds.js"></script>
     <link rel="stylesheet" href="./libs/bootstrap-4.6.0-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/resume.css">
@@ -34,77 +37,25 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <h1>Pet Sounds</h1>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about"><span class="nav-item-primary-icon"><i class="fas fa-chart-line"></i></span><span class="nav-item-primary-label">Live mode</span></a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience"><span class="nav-item-primary-icon"><i class="fas fa-chart-line"></i></span><span class="nav-item-primary-label">Trends</span></a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-podcast"></i></span><span class="nav-item-primary-label">Live</span></a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-chart-line"></i></span><span class="nav-item-primary-label">Trends</span></a></li>
           <li class="nav-item"><h2>Recordings</h2></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience"><span class="nav-item-primary-icon"><i class="fas fa-headphones"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience"><span class="nav-item-primary-icon"><i class="fas fa-headphones"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience"><span class="nav-item-primary-icon"><i class="fas fa-headphones"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
+          <!--<i class="far fa-file-audio"></i><i class="fas fa-file-audio">-->
         </ul>
       </div>
     </nav>
-
-      <!-- Sidebar -->
-      <!--<nav class="border-right nav-primary" id="sidebar-wrapper">
-        <button class="btn btn-primary" id="menu-toggle"><i class="fas fa-bars"></i></button>
   
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <h1 class="sidebar-heading">Pet Sounds</h1>
-
-        <div class="container h-100">
-
-          <a class="nav-item-primary" href="">
-            <div class="row align-items-center nav-item-row">
-              <div class="col-12 mx-auto">
-                <span class="nav-item-primary-icon"><i class="fas fa-chart-line"></i></span><span class="nav-item-primary-label">Live mode</span>
-              </div>
-            </div>            
-          </a>
-
-          <a class="nav-item-primary" href="">
-            <div class="row align-items-center nav-item-row">
-              <div class="col-12 mx-auto">
-                <span class="nav-item-primary-icon"><i class="fas fa-chart-line"></i></span><span class="nav-item-primary-label">Trends</span>
-              </div>
-            </div>            
-          </a>
-
-          <div class="row align-items-center nav-item-row">
-            <div class="col-12 mx-auto">
-              <h2 class="sidebar-subheading">Recordings</h2>
-            </div>
-          </div>  
-
-          <a class="nav-item-primary" href="">
-            <div class="row align-items-center nav-item-row">
-              <div class="col-12 mx-auto">
-                <span class="nav-item-primary-icon"><i class="fas fa-headphones"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span>
-              </div>
-            </div>            
-          </a>
-
-          <a class="nav-item-primary" href="">
-            <div class="row align-items-center nav-item-row">
-              <div class="col-12 mx-auto">
-                <span class="nav-item-primary-icon"><i class="fas fa-headphones"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span>
-              </div>
-            </div>            
-          </a>
-
-        </div>
-      </nav>-->
-  
-  <!-- Page Content-->
-  <div class="main-content container-fluid p-0">
-    <p>Page content</p>
-    <div class="waveform-analyzer">Waveform analyzer container</div>
-    <div class="spectrum-analyzer">Spectrum analyzer container</div>
-    <div class="spectrogram-analyzer">Spectrogram container</div>
-  </div>  
-
+    <!-- Page Content-->
+    <div class="main-content container-fluid p-0">
+      <p><span id="current-date"></span></p>
+      <div class="waveform-analyzer"><div id="waveform"></div></div>
+      <div class="spectrum-analyzer"></div>
+      <div class="spectrogram-analyzer"><div id="wave-spectrogram"></div></div>
+      <button class="primary-button" onclick="sendDecodeRequest()">decode</button>
+    </div>  
 
     <!-- Menu Toggle Script -->
     <script>
@@ -112,6 +63,13 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
       });
+
+      function sendDecodeRequest() {
+        socket.emit("decode", "");
+      }
+
+      var d = new Date();
+      document.getElementById("current-date").innerHTML = d;
     </script>
 
     <!-- Third party plugin JS-->

@@ -23,7 +23,11 @@ io.on('connection', function(socket){
 
   /* to do, eventually this needs to be a user specified event with parameters */
   //recordAudio(socket);
-  recordWavefile();
+  //recordWavefile();
+
+  socket.on('decode', function(){
+    decodeWavefile('./recordings/recording.wav', socket);
+});
 
   socket.on('disconnect', function(){
         open_sockets = open_sockets.filter(function(item){
@@ -95,7 +99,7 @@ function decodeWavefile(filepath, socket) {
     });
   };
    
-  readFile("foobar.wav").then((buffer) => {
+  readFile(filepath).then((buffer) => {
     return WavDecoder.decode(buffer);
   }).then(function(audioData) {
     console.log(audioData.sampleRate);

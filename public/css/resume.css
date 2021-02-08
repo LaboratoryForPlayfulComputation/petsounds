@@ -10006,6 +10006,7 @@ body {
   }
   #sideNav .navbar-collapse .navbar-nav {
     flex-direction: column;
+    padding-top: 20px;
     width: 100%;
   }
   #sideNav .navbar-collapse .navbar-nav .nav-item {
