@@ -1,0 +1,128 @@
+$font-family-main: 'Work Sans', sans-serif;
+$color-royal-blue: #3157D0; 
+$color-royal-blue-lt: #889EE4; 
+$color-mango: #FFBF5F;
+$color-bubble-gum: #EF95B6;
+$color-grass: #31D0AA;
+$color-text-lt: #ffffff; 
+$color-text-dk: #061019;
+
+h1 {
+    font-family: $font-family-main;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 30.5px;
+    letter-spacing: 0.04em;
+    color: $color-text-lt;    
+}
+
+h2 {
+    font-family: $font-family-main;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 145%;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: $color-text-lt;    
+}
+
+p {
+    color: $color-text-dk;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 145%;
+    /* or 26px */
+    letter-spacing: 0.0162em;
+}
+
+.nav-primary {
+    background-color: $color-royal-blue;
+    color: $color-text-lt;
+    padding-top: 20px;
+    width: 268px;
+    height: 100vh;
+}
+
+h1.sidebar-heading {
+    padding-left: 20px;
+}
+
+h2.sidebar-subheading {
+    padding-left: 0px;
+}
+
+.nav-item-row {
+    background-color: $color-royal-blue;
+    height: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+a.nav-item-primary{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 0.04em;
+    color: $color-text-lt !important;
+}
+
+a.nav-item-primary:hover {
+    text-decoration: none;
+}
+
+a.nav-item-primary:hover .nav-item-row{
+    background-color: $color-royal-blue-lt !important;
+    color: $color-text-lt !important;
+}
+
+.nav-item-primary-icon {
+    padding-left: 0px;
+}
+
+.nav-item-primary-label {
+    padding-left: 44px;
+}
+
+#menu-toggle {
+    background-color: $color-royal-blue !important;
+    border: none;
+    padding-left:20px;
+    padding-bottom:20px;
+}
+
+#wrapper {
+    visibility: visible;
+}
+
+#wrapper.toggled {
+    visibility: hidden;
+}
+
+#page-content-wrapper {
+    margin: 50px;
+}
+
+.spectrum-analyzer {
+    width: 100%;
+    background-color: $color-mango;
+    color: $color-text-dk;
+}
+.spectrogram-analyzer {
+    width: 100%;
+    background-color: $color-bubble-gum;
+    color: $color-text-dk;
+}
+.waveform-analyzer {
+    width: 100%;
+    background-color: $color-grass;
+    color: $color-text-dk;
+}
+
+.main-content {
+    margin: 20px;
+    width:80%;
+}
