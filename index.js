@@ -7,6 +7,7 @@ var io = require('socket.io')(http);
 var fs = require('fs');
 const Sound = require('node-arecord');
 var wav = require('node-wav');
+const WavDecoder = require("wav-decoder");
 
 var open_sockets = [];
 
@@ -20,7 +21,9 @@ io.on('connection', function(socket){
   console.log('a user connected');
   open_sockets.push(socket);
 
-  recordAudio(socket);
+  /* to do, eventually this needs to be a user specified event with parameters */
+  //recordAudio(socket);
+  recordWavefile();
 
   socket.on('disconnect', function(){
         open_sockets = open_sockets.filter(function(item){
@@ -33,28 +36,72 @@ http.listen(WS_PORT, function(){
   console.log('listening for WEBSOCKET connections on *:'+WS_PORT);
 });
 
-function recordAudio(socket) {
+/*function recordAudio(socket) {
 
-var sound = new Sound({
+  var sound = new Sound({
+      debug: false,
+      destination_folder: './recordings/',
+      filename: './recording.wav',
+      alsa_format: 'dat',
+      alsa_device: 'plughw:1,0'
+  });
+
+  sound.record();
+
+  setTimeout(() => {
+      sound.stop();
+      console.log("done recording");
+      socket.emit("recording", "hi");
+
+  }, 2000);
+
+}*/
+
+function recordWavefile() {
+  var sound = new Sound({
     debug: false,
     destination_folder: './recordings/',
     filename: './recording.wav',
     alsa_format: 'dat',
     alsa_device: 'plughw:1,0'
-});
+  });
 
-sound.record();
+  sound.record();
 
-setTimeout(() => {
-    sound.stop();
-    console.log("done recording");
+  setTimeout(() => {
+      sound.stop();
+      console.log("done recording");
 
-//    let buffer = fs.readFileSync('./recordings/recording.wav');
-//    let result = wav.decode(buffer);
+  //    let buffer = fs.readFileSync('./recordings/recording.wav');
+  //    let result = wav.decode(buffer);
+  //    socket.emit("recording", buffer);
 
-//    socket.emit("recording", buffer);
-    socket.emit("recording", "hi");
+      decodeWavefile('./recordings/recording.wav', socket);
 
-}, 2000);
+      //socket.emit("recording", "hi");
 
+  }, 2000);
 }
+
+function decodeWavefile(filepath, socket) {
+  const readFile = (filepath) => {
+    return new Promise((resolve, reject) => {
+      fs.readFile(filepath, (err, buffer) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(buffer);
+      });
+    });
+  };
+   
+  readFile("foobar.wav").then((buffer) => {
+    return WavDecoder.decode(buffer);
+  }).then(function(audioData) {
+    console.log(audioData.sampleRate);
+    console.log(audioData.channelData[0]); // Float32Array
+    console.log(audioData.channelData[1]); // Float32Array
+    socket.emit("recording", audioData);
+  });
+}
+
