@@ -104,7 +104,7 @@ function decodeWavefile(filepath, socket) {
   }).then(function(audioData) {
     console.log(audioData.sampleRate);
     console.log(audioData.channelData[0]); // Float32Array
-    console.log(audioData.channelData[1]); // Float32Array
+    //console.log(audioData.channelData[1]); // Float32Array
     socket.emit("recording", audioData);
   });
 }

@@ -2,11 +2,8 @@
 <html lang="en">
 
   <head>
-
     <title>Pet Sounds</title>
-    <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -18,12 +15,12 @@
     <script src="http://localhost:8080/socket.io/socket.io.js"></script>
     <!--<script src="/socket.io/socket.io.js"></script>-->
     <script src="./petsounds.js"></script>
+    <script src="./js/analysis.js"></script>
     <link rel="stylesheet" href="./libs/bootstrap-4.6.0-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/resume.css">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
   </head>
 
   <body id="page-top">
@@ -51,6 +48,7 @@
     <!-- Page Content-->
     <div class="main-content container-fluid p-0">
       <p><span id="current-date"></span></p>
+      <canvas id="my-canvas" width="480" height="270"></canvas>
       <div class="waveform-analyzer"><div id="waveform"></div></div>
       <div class="spectrum-analyzer"></div>
       <div class="spectrogram-analyzer"><div id="wave-spectrogram"></div></div>
