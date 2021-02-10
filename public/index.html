@@ -34,12 +34,14 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <h1>Pet Sounds</h1>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-podcast"></i></span><span class="nav-item-primary-label">Live</span></a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-chart-line"></i></span><span class="nav-item-primary-label">Trends</span></a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" onclick="viewLive()" href="#"><span class="nav-item-primary-icon"><i class="fas fa-podcast"></i></span><span class="nav-item-primary-label">Live</span></a></li>
+          <li class="nav-item"><a class="nav-link js-scroll-trigger" onclick="viewTrends()" href="#"><span class="nav-item-primary-icon"><i class="fas fa-chart-line"></i></span><span class="nav-item-primary-label">Trends</span></a></li>
           <li class="nav-item"><h2>Recordings</h2></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
-          <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
+          <div id="filenames">
+            <!--<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">MM/DD/YYYY</span></a></li>-->
+          </div>
           <!--<i class="far fa-file-audio"></i><i class="fas fa-file-audio">-->
         </ul>
       </div>
@@ -47,12 +49,22 @@
   
     <!-- Page Content-->
     <div class="main-content container-fluid p-0">
-      <p><span id="current-date"></span></p>
-      <canvas id="my-canvas" width="480" height="270"></canvas>
-      <div class="waveform-analyzer"><div id="waveform"></div></div>
-      <div class="spectrum-analyzer"></div>
-      <div class="spectrogram-analyzer"><div id="wave-spectrogram"></div></div>
-      <button class="primary-button" onclick="sendDecodeRequest()">decode</button>
+      <div id="recorded-file-view">
+        <p><span id="recording-title"></span></p>
+        <canvas id="my-canvas" width="480" height="270"></canvas>
+        <div class="waveform-analyzer"><div id="waveform"></div></div>
+        <div class="spectrum-analyzer"><div id="spectrum"></div></div>
+        <div class="spectrogram-analyzer"><div id="wave-spectrogram"></div></div>
+      </div>
+      <div id="live-view">
+        <p><span id="current-date"></span></p>
+        <button class="primary-button" onclick="startRecording()">record</button>
+        <button class="primary-button" onclick="stopRecording()">stop</button>
+        <button class="primary-button" onclick="togglePauseRecording()">toggle pause</button>
+      </div>
+      <div id="trends-view">
+        <p>Trends!!</p>
+      </div>
     </div>  
 
     <!-- Menu Toggle Script -->
@@ -62,9 +74,35 @@
         $("#wrapper").toggleClass("toggled");
       });
 
+      $("#recorded-file-view").hide();
+      $("#trends-view").hide();
+      $("#live-view").show();
+
       function sendDecodeRequest() {
         socket.emit("decode", "");
       }
+
+      function viewLive() {
+        socket.emit("live", "");
+        $("#recorded-file-view").hide();
+        $("#trends-view").hide();
+        $("#live-view").show();
+      }
+
+      function viewTrends() {
+        socket.emit("trends", "");
+        $("#recorded-file-view").hide();
+        $("#trends-view").show();
+        $("#live-view").hide();
+      }
+
+      function startRecording() {
+        socket.emit("start-recording", "");
+      }
+
+      function stopRecording() {}
+
+      function togglePauseRecording() {}
 
       var d = new Date();
       document.getElementById("current-date").innerHTML = d;
