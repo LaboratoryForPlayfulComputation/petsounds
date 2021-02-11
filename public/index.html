@@ -35,14 +35,14 @@
         <ul class="navbar-nav">
           <h1 class="nav-title">Pet Sounds</h1>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" onclick="viewLive()" href="#">
+            <a class="nav-link js-scroll-trigger" id="live-link" onclick="viewLive()" href="#">
               <span class="nav-item-label">
                 <span class="nav-item-primary-icon"><i class="fas fa-podcast"></i></span><span class="nav-item-primary-label">Live</span>
               </span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" onclick="viewTrends()" href="#">
+            <a class="nav-link js-scroll-trigger" id="trends-link" onclick="viewTrends()" href="#">
               <span class="nav-item-label">
                 <span class="nav-item-primary-icon"><i class="fas fa-chart-line"></i></span><span class="nav-item-primary-label">Trends</span>
               </span>
@@ -99,6 +99,8 @@
         $("#recorded-file-view").hide();
         $("#trends-view").hide();
         $("#live-view").show();
+        $("#trends-link").removeClass("active");
+        $("#live-link").addClass("active");
       }
 
       function viewTrends() {
@@ -106,6 +108,8 @@
         $("#recorded-file-view").hide();
         $("#trends-view").show();
         $("#live-view").hide();
+        $("#live-link").removeClass("active");
+        $("#trends-link").addClass("active");
       }
 
       function startRecording() {

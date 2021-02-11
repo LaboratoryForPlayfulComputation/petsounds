@@ -52,11 +52,11 @@ h2.sidebar-subheading {
   padding-left: 20px;
   padding-top: 10px; }
 
+.navbar-nav .active {
+  background-color: #228aebbd !important; }
+
 .navbar-nav .nav-title {
   padding-left: 20px; }
-
-a.nav-link ~ .nav-item {
-  background-color: #889EE4 !important; }
 
 .nav-item-primary-icon {
   padding-left: 20px; }

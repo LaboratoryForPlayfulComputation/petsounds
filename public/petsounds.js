@@ -3,6 +3,7 @@
 */
 
 var socket      = io();   // initialize socket connection client<>server
+var fileNames   = []      // list of filenames
 var numChannels = 1;      // audio recordings are mono and therefore have 1 channel
 var sampleRate  = 250000; // sample rate of the Ultramic
 var audioCtx    = new (window.AudioContext || window.webkitAudioContext)({sampleRate: sampleRate});
@@ -10,10 +11,11 @@ var analyser    = audioCtx.createAnalyser();
 
 /* When client receives list of filenames from server, add them as list items in the side nav */
 socket.on('filenames', function(files) {
+  fileNames = files;
   var namesListElement = document.getElementById("filenames");
-  for (var i = 0; i < files.length; i++) {
-    var f = files[i];
-    namesListElement.innerHTML = namesListElement.innerHTML + '<li class="nav-item"><a class="nav-link js-scroll-trigger" onclick="fileSelected(\'' + f.toString() + '\')" href="#"><span class="nav-item-label"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">'+ f.toString() +'</span></span></a></li>'
+  for (var i = 0; i < fileNames.length; i++) {
+    var f = fileNames[i];
+    namesListElement.innerHTML = namesListElement.innerHTML + '<li class="nav-item"><a class="nav-link js-scroll-trigger" id="'+ f.toString() +'" onclick="fileSelected(\'' + f.toString() + '\')" href="#"><span class="nav-item-label"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">'+ f.toString() +'</span></span></a></li>'
   }
 })
 
@@ -77,6 +79,10 @@ function fileSelected(filename) {
   $("#recorded-file-view").show();
   $("#trends-view").hide();
   $("#live-view").hide();
+  $("#live-link").removeClass("active");
+  $("#trends-link").removeClass("active");
+  $("#" + filename.toString() + "").addClass("active"); // not working
+  // To do, also add code to remove active class from other recorded files
 }
 
 /* Returns audio buffer containing decoded wav file data */
