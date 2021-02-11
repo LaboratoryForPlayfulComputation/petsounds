@@ -1,3 +1,4 @@
+/* Eventually this will display waveform data in realtime */
 function generateWaveform(bufferLength, dataArray) {
 
     var canvasElement = document.getElementById("my-canvas");
