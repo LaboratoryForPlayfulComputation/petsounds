@@ -33,35 +33,33 @@ p {
   width: 268px;
   height: 100vh; }
 
+.navbar {
+  padding-left: 0 !important;
+  padding-right: 0 !important; }
+
 h1.sidebar-heading {
   padding-left: 20px; }
 
 h2.sidebar-subheading {
   padding-left: 0px; }
 
-.nav-item-row {
-  background-color: #3157D0;
-  height: 60px;
+.nav-item-label {
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.nav-item .nav-category {
   padding-left: 20px;
-  padding-right: 20px; }
+  padding-top: 10px; }
 
-a.nav-item-primary {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 26px;
-  letter-spacing: 0.04em;
-  color: #ffffff !important; }
+.navbar-nav .nav-title {
+  padding-left: 20px; }
 
-a.nav-item-primary:hover {
-  text-decoration: none; }
-
-a.nav-item-primary:hover .nav-item-row {
-  background-color: #889EE4 !important;
-  color: #ffffff !important; }
+a.nav-link ~ .nav-item {
+  background-color: #889EE4 !important; }
 
 .nav-item-primary-icon {
-  padding-left: 0px; }
+  padding-left: 20px; }
 
 .nav-item-primary-label {
   padding-left: 44px; }

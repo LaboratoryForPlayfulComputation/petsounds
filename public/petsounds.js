@@ -13,7 +13,7 @@ socket.on('filenames', function(files) {
   var namesListElement = document.getElementById("filenames");
   for (var i = 0; i < files.length; i++) {
     var f = files[i];
-    namesListElement.innerHTML = namesListElement.innerHTML + '<li class="nav-item"><a class="nav-link js-scroll-trigger" onclick="fileSelected(\'' + f.toString() + '\')" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">'+ f.toString() +'</span></a></li>'
+    namesListElement.innerHTML = namesListElement.innerHTML + '<li class="nav-item"><a class="nav-link js-scroll-trigger" onclick="fileSelected(\'' + f.toString() + '\')" href="#"><span class="nav-item-label"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">'+ f.toString() +'</span></span></a></li>'
   }
 })
 
@@ -37,7 +37,7 @@ socket.on('live-data', function(stream) {
 });
 
 socket.on('new-recorded-file', function(filename) {
-  namesListElement.innerHTML = namesListElement.innerHTML + '<li class="nav-item"><a class="nav-link js-scroll-trigger" onclick="fileSelected(\'' + filename.toString() + '\')" href="#"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">'+ filename.toString() +'</span></a></li>'
+  namesListElement.innerHTML = namesListElement.innerHTML + '<li class="nav-item"><a class="nav-link js-scroll-trigger" onclick="fileSelected(\'' + filename.toString() + '\')" href="#"><span class="nav-item-label"><span class="nav-item-primary-icon"><i class="fas fa-headphones-alt"></i></span><span class="nav-item-primary-label">'+ filename.toString() +'</span></span></a></li>'
 });
 
 socket.on('receive-file', function(msg) {
