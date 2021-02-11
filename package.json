@@ -16,6 +16,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "node-sass ./public/scss -o ./public/css",
-    "start": "node index.js"
+    "start": "node index.js",
+    "predev": "node-sass ./public/scss -o ./public/css",
+    "dev": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

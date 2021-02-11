@@ -7,6 +7,7 @@
 */
 
 /* Require statements */
+const config     = require('./config.json');
 var express      = require('express');          // server framework
 var app          = express();
 var http         = require('http').Server(app);
@@ -19,12 +20,14 @@ var wav          = require('node-wav');         // not using currently
 const WavDecoder = require("wav-decoder");      // for decoding wav files
 
 /* Global variables */
+const prodMode   = config.prodMode;
 var WS_PORT      = 8080
 var open_sockets = [];                              // list of connected clients
 var files        = fs.readdirSync('./recordings/'); // array of files in the recordings directory
 var numOfFiles   = files.length;
+var sampleRate   = (prodMode ? 250000 : 44100);
 var micInstance  = mic({
-                     rate: '44100',
+                     rate: sampleRate.toString(),
                      channels: '1',
                      debug: true,
                      exitOnSilence: 6,
@@ -45,7 +48,7 @@ io.on('connection', function(socket){
   open_sockets.push(socket);
 
   /* initialize live microphone stream to client */
-  ss(socket).on('live', function(stream) {
+  /*ss(socket).on('live', function(stream) {
     var micInputStream = micInstance.getAudioStream();
     micInputStream.on('data', function(data) {
       console.log("Recieved Input Stream: " + data.length);
@@ -55,10 +58,22 @@ io.on('connection', function(socket){
     });
     micInputStream.pipe(stream);
     micInstance.start();
-  });
+  });*/
 
-  /* Send list of available filenames to client */
-  socket.emit('filenames', files);
+    const stream = ss.createStream();
+    var micInputStream = micInstance.getAudioStream();
+    micInputStream.on('data', function(data) {
+      console.log("Recieved Input Stream: " + data.length);
+    });
+    micInputStream.on('error', function(err) {
+      cosole.log("Error in Input Stream: " + err);
+    });
+    micInputStream.pipe(stream);
+    micInstance.start();
+    ss(socket).emit('mic-stream', stream, {});
+
+  /* Send relevant setup info to client */
+  socket.emit('setup', {files: files, sampleRate: sampleRate});
 
   socket.on('trends', function() {
     // To do

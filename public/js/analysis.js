@@ -1,6 +1,8 @@
 /* Eventually this will display waveform data in realtime */
 function generateWaveform(bufferLength, dataArray) {
 
+    console.log(dataArray);
+
     var canvasElement = document.getElementById("my-canvas");
     var canvasCtx = canvasElement.getContext("2d");
     canvasCtx.clearRect(0, 0, 480, 270);
@@ -38,3 +40,8 @@ function generateWaveform(bufferLength, dataArray) {
 function generateSpectrogtam() {}
 
 function generateBarGraph() {}
+
+function waveSurferCanvas(livewavesurfer, buffer) {
+  livewavesurfer.loadDecodedBuffer(buffer);
+  livewavesurfer.drawBuffer();
+}

@@ -64,16 +64,19 @@
     <div class="main-content container-fluid p-0">
       <div id="recorded-file-view">
         <p><span id="recording-title"></span></p>
-        <canvas id="my-canvas" width="480" height="270"></canvas>
         <div class="waveform-analyzer"><div id="waveform"></div></div>
         <div class="spectrum-analyzer"><div id="spectrum"></div></div>
         <div class="spectrogram-analyzer"><div id="wave-spectrogram"></div></div>
       </div>
       <div id="live-view">
         <p><span id="current-date"></span></p>
-        <button class="primary-button" onclick="startRecording()">record</button>
-        <button class="primary-button" onclick="stopRecording()">stop</button>
-        <button class="primary-button" onclick="togglePauseRecording()">toggle pause</button>
+        <div id="test-visuals"></div>
+        <canvas id="my-canvas" width="480" height="270"></canvas>
+        <div>
+          <button class="primary-button" onclick="startRecording()">record</button>
+          <button class="primary-button" onclick="stopRecording()">stop</button>
+          <button class="primary-button" onclick="togglePauseRecording()">toggle pause</button>
+        </div>
       </div>
       <div id="trends-view">
         <p>Trends!!</p>
