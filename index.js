@@ -11,8 +11,10 @@ var express      = require('express');          // server framework
 var app          = express();
 var http         = require('http').Server(app);
 var io           = require('socket.io')(http);  // for real-time client-server communication
+var ss           = require('socket.io-stream');
 var fs           = require('fs');               // for using the filesystem
 const Sound      = require('node-arecord');     // for interfacing with the microphone
+var mic          = require('mic');
 var wav          = require('node-wav');         // not using currently
 const WavDecoder = require("wav-decoder");      // for decoding wav files
 
@@ -21,6 +23,13 @@ var WS_PORT      = 8080
 var open_sockets = [];                              // list of connected clients
 var files        = fs.readdirSync('./recordings/'); // array of files in the recordings directory
 var numOfFiles   = files.length;
+var micInstance  = mic({
+                     rate: '44100',
+                     channels: '1',
+                     debug: true,
+                     exitOnSilence: 6,
+                     fileType: 'wav'
+                   });
 
 /* Logic for what files server sends when client connects to home page */
 app.get('/', function(req, res){
@@ -35,14 +44,21 @@ io.on('connection', function(socket){
   console.log('a user connected');
   open_sockets.push(socket);
 
+  /* initialize live microphone stream to client */
+  ss(socket).on('live', function(stream) {
+    var micInputStream = micInstance.getAudioStream();
+    micInputStream.on('data', function(data) {
+      console.log("Recieved Input Stream: " + data.length);
+    });
+    micInputStream.on('error', function(err) {
+      cosole.log("Error in Input Stream: " + err);
+    });
+    micInputStream.pipe(stream);
+    micInstance.start();
+  });
+
   /* Send list of available filenames to client */
   socket.emit('filenames', files);
-
-  socket.on('live', function() {
-    // To do
-    // send live stream back
-    // socket.emit live data
-  });
 
   socket.on('trends', function() {
     // To do

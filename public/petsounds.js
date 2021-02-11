@@ -8,6 +8,11 @@ var numChannels = 1;      // audio recordings are mono and therefore have 1 chan
 var sampleRate  = 250000; // sample rate of the Ultramic
 var audioCtx    = new (window.AudioContext || window.webkitAudioContext)({sampleRate: sampleRate});
 var analyser    = audioCtx.createAnalyser();
+var stream      = ss.createStream();
+
+var source = audioCtx.createBufferSource();
+ss(socket).emit('live', stream);
+//stream.pipe(source.buffer); // need to figure out where to pipe this stream so we can visualize it
 
 /* When client receives list of filenames from server, add them as list items in the side nav */
 socket.on('filenames', function(files) {
