@@ -1,36 +1,51 @@
-var WS_PORT=8080
+/* 
+  This is the main server logic which handles
+  1) receiving requests from the client, 
+  2) responding with appropiate data,
+  3) creating, deleting, and saving recordings,
+  4) encoding and decoding audio data. 
+*/
 
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var fs = require('fs');
-const Sound = require('node-arecord');
-var wav = require('node-wav');
-const WavDecoder = require("wav-decoder");
+/* Require statements */
+var express      = require('express');          // server framework
+var app          = express();
+var http         = require('http').Server(app);
+var io           = require('socket.io')(http);  // for real-time client-server communication
+var fs           = require('fs');               // for using the filesystem
+const Sound      = require('node-arecord');     // for interfacing with the microphone
+var wav          = require('node-wav');         // not using currently
+const WavDecoder = require("wav-decoder");      // for decoding wav files
 
-var open_sockets = [];
-var files = fs.readdirSync('./recordings/');
-var numberOfFiles = files.length;
+/* Global variables */
+var WS_PORT      = 8080
+var open_sockets = [];                              // list of connected clients
+var files        = fs.readdirSync('./recordings/'); // array of files in the recordings directory
+var numOfFiles   = files.length;
 
+/* Logic for what files server sends when client connects to home page */
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
-
 app.use(express.static('public'));
 
+/* Event when a user connects (i.e. a new client in the browser) */
+/* Add code in here for listening for websocket messages */
+/* socket.on listens for messages, socket.emit sends a message */
 io.on('connection', function(socket){
   console.log('a user connected');
   open_sockets.push(socket);
 
+  /* Send list of available filenames to client */
   socket.emit('filenames', files);
 
   socket.on('live', function() {
+    // To do
     // send live stream back
     // socket.emit live data
   });
 
   socket.on('trends', function() {
+    // To do
     // send trends data back
     // socket.emit trends data
   });
@@ -59,6 +74,7 @@ http.listen(WS_PORT, function(){
   console.log('listening for WEBSOCKET connections on *:'+WS_PORT);
 });
 
+/* Helper functions which can eventually move to separate files */
 function recordAudio(socket) {
 
   var sound = new Sound({
@@ -73,14 +89,13 @@ function recordAudio(socket) {
   setTimeout(() => {
       sound.stop();
       console.log("done recording");
-      socket.emit("recording", "hi");
 
   }, 2000);
 
 }
 
 function recordWavefile() {
-  var filename = './recording' + numberOfFiles.toString() + '.wav';
+  var filename = './recording' + numOfFiles.toString() + '.wav';
   var sound = new Sound({
     debug: false,
     destination_folder: './recordings/',
@@ -95,7 +110,7 @@ function recordWavefile() {
       console.log("done recording");
 
       var files = fs.readdirSync('./recordings/');
-      var numberOfFiles = files.length;
+      var numOfFiles = files.length;
 
       socket.emit("new-recorded-file", filename);
 
@@ -128,9 +143,8 @@ function decodeAndSendWavefile(filename, socket) {
   }).then(function(audioData) {
     console.log(audioData.sampleRate);
     console.log(audioData.channelData[0]); // Float32Array
-    //console.log(audioData.channelData[1]); // Float32Array
     var msg = {filename: filename, audioData: audioData};
-    socket.emit("receivefile", msg);
+    socket.emit("receive-file", msg);
   });
 }
 
