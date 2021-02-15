@@ -20,12 +20,12 @@ var wav          = require('node-wav');         // not using currently
 const WavDecoder = require("wav-decoder");      // for decoding wav files
 
 /* Global variables */
-const prodMode   = config.prodMode;
+const piMode     = config.piMode;
 var WS_PORT      = 8080
 var open_sockets = [];                              // list of connected clients
 var files        = fs.readdirSync('./recordings/'); // array of files in the recordings directory
 var numOfFiles   = files.length;
-var sampleRate   = (prodMode ? 250000 : 44100);
+var sampleRate   = (piMode ? 250000 : 44100);
 var micInstance  = mic({
                      rate: sampleRate.toString(),
                      channels: '1',
